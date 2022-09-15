@@ -1,0 +1,5 @@
+# exclude terraform kitchen
+.terraform
+
+# exclude vim mess
+**/*.swp
