@@ -1,5 +1,5 @@
 resource "random_id" "main" {
-  byte_length = 8
+  byte_length = 4
 }
 
 module "logging-n3" {
