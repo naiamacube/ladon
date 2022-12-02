@@ -3,7 +3,7 @@ module "vpc-host-dev" {
     source  = "terraform-google-modules/network/google"
     version = "~> 5.0"
 
-    project_id   = module.vpc-host-dev-n3.project_id
+    project_id   = module.vpc-host-dev-n3.keepers.project_id
     network_name = "vpc-host-dev"
 
     subnets = [
@@ -34,7 +34,7 @@ module "vpc-host-dev" {
 resource "google_compute_firewall" "vpc-host-dev-allow-iap-rdp" {
   name      = "vpc-host-dev-allow-iap-rdp"
   network   = module.vpc-host-dev.network_name
-  project   = module.vpc-host-dev-n3.project_id
+  project   = module.vpc-host-dev-n3.keepers.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -54,7 +54,7 @@ resource "google_compute_firewall" "vpc-host-dev-allow-iap-rdp" {
 resource "google_compute_firewall" "vpc-host-dev-allow-iap-ssh" {
   name      = "vpc-host-dev-allow-iap-ssh"
   network   = module.vpc-host-dev.network_name
-  project   = module.vpc-host-dev-n3.project_id
+  project   = module.vpc-host-dev-n3.keepers.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -74,7 +74,7 @@ resource "google_compute_firewall" "vpc-host-dev-allow-iap-ssh" {
 resource "google_compute_firewall" "vpc-host-dev-allow-icmp" {
   name      = "vpc-host-dev-allow-icmp"
   network   = module.vpc-host-dev.network_name
-  project   = module.vpc-host-dev-n3.project_id
+  project   = module.vpc-host-dev-n3.keepers.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -97,7 +97,7 @@ module "vpc-host-stage" {
     source  = "terraform-google-modules/network/google"
     version = "~> 5.0"
 
-    project_id   = module.vpc-host-stage-n3.project_id
+    project_id   = module.vpc-host-stage-n3.keepers.project_id
     network_name = "vpc-host-stage"
 
     subnets = [
@@ -128,7 +128,7 @@ module "vpc-host-stage" {
 resource "google_compute_firewall" "vpc-host-stage-allow-iap-rdp" {
   name      = "vpc-host-stage-allow-iap-rdp"
   network   = module.vpc-host-stage.network_name
-  project   = module.vpc-host-stage-n3.project_id
+  project   = module.vpc-host-stage-n3.keepers.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -148,7 +148,7 @@ resource "google_compute_firewall" "vpc-host-stage-allow-iap-rdp" {
 resource "google_compute_firewall" "vpc-host-stage-allow-iap-ssh" {
   name      = "vpc-host-stage-allow-iap-ssh"
   network   = module.vpc-host-stage.network_name
-  project   = module.vpc-host-stage-n3.project_id
+  project   = module.vpc-host-stage-n3.keepers.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -168,7 +168,7 @@ resource "google_compute_firewall" "vpc-host-stage-allow-iap-ssh" {
 resource "google_compute_firewall" "vpc-host-stage-allow-icmp" {
   name      = "vpc-host-stage-allow-icmp"
   network   = module.vpc-host-stage.network_name
-  project   = module.vpc-host-stage-n3.project_id
+  project   = module.vpc-host-stage-n3.keepers.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -191,7 +191,7 @@ module "vpc-host-prod" {
     source  = "terraform-google-modules/network/google"
     version = "~> 5.0"
 
-    project_id   = module.vpc-host-prod-n3.project_id
+    project_id   = module.vpc-host-prod-n3.keepers.project_id
     network_name = "vpc-host-prod"
 
     subnets = [
@@ -222,7 +222,7 @@ module "vpc-host-prod" {
 resource "google_compute_firewall" "vpc-host-prod-allow-iap-rdp" {
   name      = "vpc-host-prod-allow-iap-rdp"
   network   = module.vpc-host-prod.network_name
-  project   = module.vpc-host-prod-n3.project_id
+  project   = module.vpc-host-prod-n3.keepers.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -242,7 +242,7 @@ resource "google_compute_firewall" "vpc-host-prod-allow-iap-rdp" {
 resource "google_compute_firewall" "vpc-host-prod-allow-iap-ssh" {
   name      = "vpc-host-prod-allow-iap-ssh"
   network   = module.vpc-host-prod.network_name
-  project   = module.vpc-host-prod-n3.project_id
+  project   = module.vpc-host-prod-n3.keepers.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -262,7 +262,7 @@ resource "google_compute_firewall" "vpc-host-prod-allow-iap-ssh" {
 resource "google_compute_firewall" "vpc-host-prod-allow-icmp" {
   name      = "vpc-host-prod-allow-icmp"
   network   = module.vpc-host-prod.network_name
-  project   = module.vpc-host-prod-n3.project_id
+  project   = module.vpc-host-prod-n3.keepers.project_id
   direction = "INGRESS"
   priority  = 10000
 
