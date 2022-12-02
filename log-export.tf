@@ -13,7 +13,7 @@ module "naiama-logging-destination" {
   source  = "terraform-google-modules/log-export/google//modules/logbucket"
   version = "~> 7.4.1"
 
-  project_id               = module.logging-n3.keepers.project_id
+  project_id               = module.logging-n3.project_id
   name                     = "naiama-logging"
   location                 = var.gcp_region_logging
   retention_days           = 365
