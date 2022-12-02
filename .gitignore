@@ -1,5 +1,15 @@
 # exclude terraform kitchen
-.terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+**/secret.tfvars
+config.*.tfbackend
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+**/tfplan
 
-# exclude vim mess
+# vim stuff
 **/*.swp

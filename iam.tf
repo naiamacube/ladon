@@ -2,7 +2,7 @@ module "organization-iam" {
   source  = "terraform-google-modules/iam/google//modules/organizations_iam"
   version = "~> 7.4"
 
-  organizations = ["237438405014"]
+  organizations = [var.gcp_organization_id]
 
   bindings = {
     
@@ -38,11 +38,11 @@ module "development-iam" {
 }
 
 
-module "non-production-iam" {
+module "stage-iam" {
   source  = "terraform-google-modules/iam/google//modules/folders_iam"
   version = "~> 7.4"
 
-  folders = [google_folder.non-production.name]
+  folders = [google_folder.stage.name]
 
   bindings = {
     

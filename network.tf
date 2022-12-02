@@ -3,7 +3,7 @@ module "vpc-host-dev" {
     source  = "terraform-google-modules/network/google"
     version = "~> 5.0"
 
-    project_id   = module.vpc-host-dev-ef916-mn212.project_id
+    project_id   = module.vpc-host-dev-n3.project_id
     network_name = "vpc-host-dev"
 
     subnets = [
@@ -11,7 +11,7 @@ module "vpc-host-dev" {
         {
             subnet_name           = "subnet-dev-1"
             subnet_ip             = "10.132.0.0/20"
-            subnet_region         = "europe-west1"
+            subnet_region         = var.gcp_region_dev_subnet_1
             subnet_private_access = true
             subnet_flow_logs      = true
             subnet_flow_logs_sampling = "0.5"
@@ -21,7 +21,7 @@ module "vpc-host-dev" {
         {
             subnet_name           = "subnet-dev-2"
             subnet_ip             = "10.156.0.0/20"
-            subnet_region         = "europe-west3"
+            subnet_region         = var.gcp_region_dev_subnet_2
             subnet_private_access = true
             subnet_flow_logs      = true
             subnet_flow_logs_sampling = "0.5"
@@ -34,7 +34,7 @@ module "vpc-host-dev" {
 resource "google_compute_firewall" "vpc-host-dev-allow-iap-rdp" {
   name      = "vpc-host-dev-allow-iap-rdp"
   network   = module.vpc-host-dev.network_name
-  project   = module.vpc-host-dev-ef916-mn212.project_id
+  project   = module.vpc-host-dev-n3.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -54,7 +54,7 @@ resource "google_compute_firewall" "vpc-host-dev-allow-iap-rdp" {
 resource "google_compute_firewall" "vpc-host-dev-allow-iap-ssh" {
   name      = "vpc-host-dev-allow-iap-ssh"
   network   = module.vpc-host-dev.network_name
-  project   = module.vpc-host-dev-ef916-mn212.project_id
+  project   = module.vpc-host-dev-n3.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -74,7 +74,7 @@ resource "google_compute_firewall" "vpc-host-dev-allow-iap-ssh" {
 resource "google_compute_firewall" "vpc-host-dev-allow-icmp" {
   name      = "vpc-host-dev-allow-icmp"
   network   = module.vpc-host-dev.network_name
-  project   = module.vpc-host-dev-ef916-mn212.project_id
+  project   = module.vpc-host-dev-n3.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -93,19 +93,19 @@ resource "google_compute_firewall" "vpc-host-dev-allow-icmp" {
 # NAT Router and config
 
 # VPC and Subnets
-module "vpc-host-nonprod" {
+module "vpc-host-stage" {
     source  = "terraform-google-modules/network/google"
     version = "~> 5.0"
 
-    project_id   = module.vpc-host-nonprod-ef916-mn212.project_id
-    network_name = "vpc-host-nonprod"
+    project_id   = module.vpc-host-stage-n3.project_id
+    network_name = "vpc-host-stage"
 
     subnets = [
        
         {
-            subnet_name           = "subnet-non-prod-1"
+            subnet_name           = "subnet-stage-1"
             subnet_ip             = "10.198.0.0/20"
-            subnet_region         = "europe-west8"
+            subnet_region         = var.gcp_region_stage_subnet_1
             subnet_private_access = true
             subnet_flow_logs      = true
             subnet_flow_logs_sampling = "0.5"
@@ -113,9 +113,9 @@ module "vpc-host-nonprod" {
             subnet_flow_logs_interval = "INTERVAL_10_MIN"
         },
         {
-            subnet_name           = "subnet-non-prod-2"
+            subnet_name           = "subnet-stage-2"
             subnet_ip             = "10.200.0.0/20"
-            subnet_region         = "europe-west9"
+            subnet_region         = var.gcp_region_stage_subnet_2
             subnet_private_access = true
             subnet_flow_logs      = true
             subnet_flow_logs_sampling = "0.5"
@@ -125,10 +125,10 @@ module "vpc-host-nonprod" {
     ]
 }
 # Firewall Rules
-resource "google_compute_firewall" "vpc-host-nonprod-allow-iap-rdp" {
-  name      = "vpc-host-nonprod-allow-iap-rdp"
-  network   = module.vpc-host-nonprod.network_name
-  project   = module.vpc-host-nonprod-ef916-mn212.project_id
+resource "google_compute_firewall" "vpc-host-stage-allow-iap-rdp" {
+  name      = "vpc-host-stage-allow-iap-rdp"
+  network   = module.vpc-host-stage.network_name
+  project   = module.vpc-host-stage-n3.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -145,10 +145,10 @@ resource "google_compute_firewall" "vpc-host-nonprod-allow-iap-rdp" {
   "35.235.240.0/20",
   ]
 }
-resource "google_compute_firewall" "vpc-host-nonprod-allow-iap-ssh" {
-  name      = "vpc-host-nonprod-allow-iap-ssh"
-  network   = module.vpc-host-nonprod.network_name
-  project   = module.vpc-host-nonprod-ef916-mn212.project_id
+resource "google_compute_firewall" "vpc-host-stage-allow-iap-ssh" {
+  name      = "vpc-host-stage-allow-iap-ssh"
+  network   = module.vpc-host-stage.network_name
+  project   = module.vpc-host-stage-n3.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -165,10 +165,10 @@ resource "google_compute_firewall" "vpc-host-nonprod-allow-iap-ssh" {
   "35.235.240.0/20",
   ]
 }
-resource "google_compute_firewall" "vpc-host-nonprod-allow-icmp" {
-  name      = "vpc-host-nonprod-allow-icmp"
-  network   = module.vpc-host-nonprod.network_name
-  project   = module.vpc-host-nonprod-ef916-mn212.project_id
+resource "google_compute_firewall" "vpc-host-stage-allow-icmp" {
+  name      = "vpc-host-stage-allow-icmp"
+  network   = module.vpc-host-stage.network_name
+  project   = module.vpc-host-stage-n3.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -191,7 +191,7 @@ module "vpc-host-prod" {
     source  = "terraform-google-modules/network/google"
     version = "~> 5.0"
 
-    project_id   = module.vpc-host-prod-ef916-mn212.project_id
+    project_id   = module.vpc-host-prod-n3.project_id
     network_name = "vpc-host-prod"
 
     subnets = [
@@ -199,7 +199,7 @@ module "vpc-host-prod" {
         {
             subnet_name           = "subnet-prod-1"
             subnet_ip             = "10.204.0.0/20"
-            subnet_region         = "europe-southwest1"
+            subnet_region         = var.gcp_region_prod_subnet_1
             subnet_private_access = true
             subnet_flow_logs      = true
             subnet_flow_logs_sampling = "0.5"
@@ -209,7 +209,7 @@ module "vpc-host-prod" {
         {
             subnet_name           = "subnet-prod-2"
             subnet_ip             = "10.172.0.0/20"
-            subnet_region         = "europe-west6"
+            subnet_region         = var.gcp_region_prod_subnet_2
             subnet_private_access = true
             subnet_flow_logs      = true
             subnet_flow_logs_sampling = "0.5"
@@ -222,7 +222,7 @@ module "vpc-host-prod" {
 resource "google_compute_firewall" "vpc-host-prod-allow-iap-rdp" {
   name      = "vpc-host-prod-allow-iap-rdp"
   network   = module.vpc-host-prod.network_name
-  project   = module.vpc-host-prod-ef916-mn212.project_id
+  project   = module.vpc-host-prod-n3.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -242,7 +242,7 @@ resource "google_compute_firewall" "vpc-host-prod-allow-iap-rdp" {
 resource "google_compute_firewall" "vpc-host-prod-allow-iap-ssh" {
   name      = "vpc-host-prod-allow-iap-ssh"
   network   = module.vpc-host-prod.network_name
-  project   = module.vpc-host-prod-ef916-mn212.project_id
+  project   = module.vpc-host-prod-n3.project_id
   direction = "INGRESS"
   priority  = 10000
 
@@ -262,7 +262,7 @@ resource "google_compute_firewall" "vpc-host-prod-allow-iap-ssh" {
 resource "google_compute_firewall" "vpc-host-prod-allow-icmp" {
   name      = "vpc-host-prod-allow-icmp"
   network   = module.vpc-host-prod.network_name
-  project   = module.vpc-host-prod-ef916-mn212.project_id
+  project   = module.vpc-host-prod-n3.project_id
   direction = "INGRESS"
   priority  = 10000
 

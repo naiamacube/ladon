@@ -1,10 +1,10 @@
-module "logsink-237438405014-logbucketsink" {
+module "logsink-naiama-logbucketsink" {
   source  = "terraform-google-modules/log-export/google"
   version = "~> 7.3.0"
 
   destination_uri      = module.naiama-logging-destination.destination_uri
-  log_sink_name        = "237438405014-logbucketsink"
-  parent_resource_id   = var.org_id
+  log_sink_name        = "naiama-logbucketsink"
+  parent_resource_id   = var.gcp_organization_id
   parent_resource_type = "organization"
   include_children     = true
 }
@@ -13,9 +13,9 @@ module "naiama-logging-destination" {
   source  = "terraform-google-modules/log-export/google//modules/logbucket"
   version = "~> 7.4.1"
 
-  project_id               = module.logging-ef916-mn212.project_id
+  project_id               = module.logging-n3.project_id
   name                     = "naiama-logging"
-  location                 = "europe-west9"
+  location                 = var.gcp_region_logging
   retention_days           = 365
-  log_sink_writer_identity = module.logsink-237438405014-logbucketsink.writer_identity
+  log_sink_writer_identity = module.logsink-naiama-logbucketsink.writer_identity
 }
